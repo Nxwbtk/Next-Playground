@@ -1,74 +1,158 @@
 import { Label } from "@radix-ui/react-label";
-import { Card, CardContent } from "../ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import { IDashboard } from "./schema";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+import { Overview } from "./overview";
 
 export const Dashboard = (props: IDashboard) => {
   const { total_documents, pending_documents, cancel_documents } = props;
   return (
     <>
-      <div className="grid gap-3">
-        <div className="mb-3">
-          <Label>Dashboard</Label>
-        </div>
-        <Card className="grid grid-cols-1">
-          <CardContent className="text-xl">
-            <div className="mb-3">
-              <Label>ต้องการเรียนรู้เพิ่มเติม?</Label>
-            </div>
-          </CardContent>
-          <CardContent>
-            <div>
-              <Label>bla bla bla</Label>
-            </div>
-          </CardContent>
-        </Card>
-        <div className="grid grid-cols-3 gap-4">
-          <Card>
-            <CardContent className="text-sm">
-              <div>
-                <Label>เอกสารทั้งหมด {total_documents}</Label>
+      <div className="hidden flex-col md:flex">
+        <div className="flex-1 space-y-4 p-8 pt-6">
+          <div className="flex items-center justify-between space-y-2">
+            <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
+          </div>
+          <Tabs defaultValue="overview" className="space-y-4">
+            <TabsList>
+              <TabsTrigger value="overview">Overview</TabsTrigger>
+              <TabsTrigger value="analytics" disabled>
+                Analytics
+              </TabsTrigger>
+              <TabsTrigger value="reports" disabled>
+                Reports
+              </TabsTrigger>
+              <TabsTrigger value="notifications" disabled>
+                Notifications
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="overview" className="space-y-4">
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                <Card>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">
+                      Total Documents
+                    </CardTitle>
+                    {/* <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      className="h-4 w-4 text-muted-foreground"
+                    >
+                      <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                    </svg> */}
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold">{total_documents}</div>
+                    <p className="text-xs text-muted-foreground">
+                      +20.1% from last month
+                    </p>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">
+                      Pending Documents
+                    </CardTitle>
+                    {/* <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      className="h-4 w-4 text-muted-foreground"
+                    >
+                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                      <circle cx="9" cy="7" r="4" />
+                      <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg> */}
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold">{pending_documents}</div>
+                    <p className="text-xs text-muted-foreground">
+                      +180.1% from last month
+                    </p>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">Cancel Documents</CardTitle>
+                    {/* <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      className="h-4 w-4 text-muted-foreground"
+                    >
+                      <rect width="20" height="14" x="2" y="5" rx="2" />
+                      <path d="M2 10h20" />
+                    </svg> */}
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold">{cancel_documents}</div>
+                    <p className="text-xs text-muted-foreground">
+                      +19% from last month
+                    </p>
+                  </CardContent>
+                </Card>
+                {/* <Card>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">
+                      Active Now
+                    </CardTitle>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      className="h-4 w-4 text-muted-foreground"
+                    >
+                      <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                    </svg>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold">+573</div>
+                    <p className="text-xs text-muted-foreground">
+                      +201 since last hour
+                    </p>
+                  </CardContent>
+                </Card> */}
               </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="text-sm">
-              <div>
-                <Label>เอกสารรอการอนุมัติ {pending_documents}</Label>
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+                <Card className="col-span-4">
+                  <CardHeader>
+                    <CardTitle>Overview</CardTitle>
+                  </CardHeader>
+                  <CardContent className="pl-2">
+                    <Overview />
+                  </CardContent>
+                </Card>
+                <Card className="col-span-3">
+                  <CardHeader>
+                    <CardTitle>Recent Sales</CardTitle>
+                    <CardDescription>
+                      You made 265 sales this month.
+                    </CardDescription>
+                  </CardHeader>
+                  {/* <CardContent>
+                    <RecentSales />
+                  </CardContent> */}
+                </Card>
               </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="text-sm">
-              <div>
-                <Label>เอกสารถูกยกเลิก {cancel_documents}</Label>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-        <div className="grid grid-rows-6 grid-cols-3 gap-4">
-          <Card className="row-span-6 col-span-2">
-            <CardContent className="text-sm">
-              <div>
-                <Label>กราฟการเปลี่ยนแปลงนโยบาย(ภายในปี)</Label>
-              </div>
-            </CardContent>
-          </Card>
-          <Card className="row-span-6" >
-            <CardContent className="text-sm">
-              <div>
-                <Label>รายการเอกสารรอการอนุมัติ (ภายในวัน)</Label>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-        <div className="grid grid-cols-1">
-          <Card className="">
-            <CardContent className="text-sm">
-              <div>
-                <Label>กราฟข้อมูลเอกสารแบ่งแยกตามแผนก/ฝ่าย(ภายในปี)</Label>
-              </div>
-            </CardContent>
-          </Card>
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
     </>
