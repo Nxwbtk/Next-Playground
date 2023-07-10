@@ -14,7 +14,7 @@ export const Dashboard = (props: IDashboard) => {
             <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
           </div>
           <Tabs defaultValue="overview" className="space-y-4">
-            <TabsList>
+            {/* <TabsList>
               <TabsTrigger value="overview">Overview</TabsTrigger>
               <TabsTrigger value="analytics" disabled>
                 Analytics
@@ -25,7 +25,7 @@ export const Dashboard = (props: IDashboard) => {
               <TabsTrigger value="notifications" disabled>
                 Notifications
               </TabsTrigger>
-            </TabsList>
+            </TabsList> */}
             <TabsContent value="overview" className="space-y-4">
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                 <Card>
@@ -48,9 +48,9 @@ export const Dashboard = (props: IDashboard) => {
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-bold">{total_documents}</div>
-                    <p className="text-xs text-muted-foreground">
+                    {/* <p className="text-xs text-muted-foreground">
                       +20.1% from last month
-                    </p>
+                    </p> */}
                   </CardContent>
                 </Card>
                 <Card>
@@ -75,9 +75,9 @@ export const Dashboard = (props: IDashboard) => {
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-bold">{pending_documents}</div>
-                    <p className="text-xs text-muted-foreground">
+                    {/* <p className="text-xs text-muted-foreground">
                       +180.1% from last month
-                    </p>
+                    </p> */}
                   </CardContent>
                 </Card>
                 <Card>
@@ -99,9 +99,9 @@ export const Dashboard = (props: IDashboard) => {
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-bold">{cancel_documents}</div>
-                    <p className="text-xs text-muted-foreground">
+                    {/* <p className="text-xs text-muted-foreground">
                       +19% from last month
-                    </p>
+                    </p> */}
                   </CardContent>
                 </Card>
                 {/* <Card>
@@ -130,7 +130,7 @@ export const Dashboard = (props: IDashboard) => {
                   </CardContent>
                 </Card> */}
               </div>
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+              {/* <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
                 <Card className="col-span-4">
                   <CardHeader>
                     <CardTitle>Overview</CardTitle>
@@ -149,8 +149,8 @@ export const Dashboard = (props: IDashboard) => {
                   {/* <CardContent>
                     <RecentSales />
                   </CardContent> */}
-                </Card>
-              </div>
+                {/* </Card>
+              </div> */}
             </TabsContent>
           </Tabs>
         </div>
