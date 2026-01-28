@@ -10,15 +10,13 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh 'node -v'
-                sh 'cd app'
-                sh 'ls -la'
-                sh 'pnpm install'
+                sh 'cd app && pnpm install'
             }
         }
 
         stage('Build') {
             steps {
-                sh 'pnpm run build'
+                sh 'cd app && pnpm run build'
             }
         }
     }
