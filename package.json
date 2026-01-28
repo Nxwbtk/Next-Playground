@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "million": "^2.4.9",
-    "reactflow": "^11.7.4"
-  }
-}
