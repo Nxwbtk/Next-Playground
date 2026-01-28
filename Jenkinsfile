@@ -11,6 +11,7 @@ pipeline {
             steps {
                 sh 'node -v'
                 sh 'cd app'
+                sh 'ls -la'
                 sh 'pnpm install'
             }
         }
