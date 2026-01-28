@@ -10,6 +10,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh 'node -v'
+                sh 'cd app'
                 sh 'pnpm install'
             }
         }
