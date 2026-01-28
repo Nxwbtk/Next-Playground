@@ -1,11 +1,22 @@
 pipeline {
     agent any
     stages {
-        stage('Hello') {
+        stage('Checkout') {
             steps {
-                echo 'Hello World'
-                sh 'ls -la'
-                sh 'pwd'
+                checkout scm
+            }
+        }
+        
+        stage('Install Dependencies') {
+            steps {
+                sh 'node -v'
+                sh 'pnpm install'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'pnpm run build'
             }
         }
     }
