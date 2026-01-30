@@ -37,7 +37,7 @@ pipeline {
                     ssh vagrant@${PROD_HOST} '
                         cd ${PROD_PATH} &&
                         npm install --production &&
-                        pm2 startOrReload ecosystem.config.js
+                        pm2 startOrReload /opt/apps/scripts/ecosystem.config.js
                     '
                     """
                 }
