@@ -1,8 +1,9 @@
 pipeline {
     agent any
     environment {
-        PROD_HOST = "192.168.56.10"
-        PROD_PATH = "/opt/apps/nextjs-app"
+        APP_NAME = 'nextjs-app'
+        ARTIFACT_DIR = 'artifact'
+        VERSION = "${env.GIT_COMMIT.take(7)}-${env.BUILD_NUMBER}"
     }
     stages {
         stage('Checkout') {
@@ -10,37 +11,57 @@ pipeline {
                 checkout scm
             }
         }
-        
+
         stage('Install Dependencies') {
             steps {
-                sh 'node -v'
-                sh 'cd app && pnpm install'
+                sh '''
+                npm ci
+                '''
             }
         }
 
         stage('Build') {
             steps {
-                sh 'cd app && pnpm run build'
+                sh '''
+                npm run build
+                '''
             }
         }
 
-        stage('Deploy') {
+        stage('Create Artifact') {
             steps {
-                sshagent(credentials: ['prod-ssh']) {
-                    sh """
-                    cd app && \
-                    rsync -az --delete \
-                        --exclude=node_modules \
-                        ./ \
-                        vagrant@${PROD_HOST}:${PROD_PATH}
+                sh '''
+                rm -rf ${ARTIFACT_DIR}
+                mkdir -p ${ARTIFACT_DIR}/app
 
-                    ssh vagrant@${PROD_HOST} '
-                        cd ${PROD_PATH} &&
-                        npm install --production &&
-                        pm2 startOrReload /opt/apps/scripts/ecosystem.config.js
-                    '
-                    """
-                }
+                cp -r .next public node_modules package.json ecosystem.config.js ${ARTIFACT_DIR}/app
+                echo ${VERSION} > ${ARTIFACT_DIR}/VERSION
+
+                tar -czf ${APP_NAME}-${VERSION}.tar.gz ${ARTIFACT_DIR}
+                '''
+            }
+        }
+
+        stage('Deploy to Prod') {
+            steps {
+                sh '''
+                rsync -az ${APP_NAME}-${VERSION}.tar.gz vagrant@192.168.56.10:/opt/apps/releases/
+                '''
+            }
+        }
+
+        stage('Activate Release') {
+            steps {
+                sh '''
+                ssh vagrant@192.168.56.10 << EOF
+                    set -e
+                    cd /opt/apps
+                    mkdir -p releases current
+                    tar -xzf releases/${APP_NAME}-${VERSION}.tar.gz -C releases
+                    ln -sfn releases/${ARTIFACT_DIR}/app current
+                    pm2 startOrReload /opt/apps/scripts/ecosystem.config.js
+                EOF
+                '''
             }
         }
     }
