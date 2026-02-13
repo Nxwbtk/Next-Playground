@@ -36,8 +36,14 @@ pipeline {
 
                 cd app && cp -r .next public node_modules package.json ../${ARTIFACT_DIR}/app/
                 echo ${VERSION} > ../${ARTIFACT_DIR}/VERSION
+                '''
+            }
+        }
 
-                tar -czf ${APP_NAME}-${VERSION}.tar.gz ../${ARTIFACT_DIR}
+        stage('Pack Artifact') {
+            steps {
+                sh '''
+                tar -czf ${APP_NAME}-${VERSION}.tar.gz ${ARTIFACT_DIR}
                 '''
             }
         }
