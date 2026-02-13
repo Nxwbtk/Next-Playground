@@ -60,7 +60,7 @@ pipeline {
         stage('Activate Release') {
             steps {
                 sh '''
-                ssh vagrant@192.168.56.10 << 'EOF'
+                ssh vagrant@192.168.56.10 << EOF
                     set -e
                     cd /opt/apps
                     tar -xzf releases/${APP_NAME}-${VERSION}.tar.gz -C releases
