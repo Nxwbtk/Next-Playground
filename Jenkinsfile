@@ -52,7 +52,7 @@ pipeline {
             steps {
                 sh '''
                 ls -la
-                rsync -az ${APP_NAME}-${VERSION}.tar.gz vagrant@192.168.56.10:/opt/apps/releases/
+                rsync -az ${APP_NAME}-${VERSION}.tar.gz vagrant@192.168.56.10:/opt/apps/releases/${VERSION}
                 '''
             }
         }
@@ -63,8 +63,8 @@ pipeline {
                 ssh vagrant@192.168.56.10 "
                     set -e &&
                     cd /opt/apps &&
-                    tar -xzf releases/${APP_NAME}-${VERSION}.tar.gz -C releases &&
-                    ln -sfn releases/${ARTIFACT_DIR} current &&
+                    tar -xzf releases/${APP_NAME}-${VERSION}.tar.gz -C releases/${VERSION} &&
+                    ln -sfn releases/${VERSION}/${ARTIFACT_DIR} current &&
                     pm2 startOrReload /opt/apps/scripts/ecosystem.config.js
                 "
                 '''
