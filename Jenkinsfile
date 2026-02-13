@@ -35,7 +35,7 @@ pipeline {
                 mkdir -p ${ARTIFACT_DIR}/app/
 
                 cd app && cp -r .next public node_modules package.json ../${ARTIFACT_DIR}/app/
-                echo ${VERSION} > ${ARTIFACT_DIR}/VERSION
+                echo ${VERSION} > ../${ARTIFACT_DIR}/VERSION
 
                 tar -czf ${APP_NAME}-${VERSION}.tar.gz ${ARTIFACT_DIR}
                 '''
