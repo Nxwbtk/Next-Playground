@@ -67,7 +67,7 @@ pipeline {
                 ssh vagrant@192.168.56.10 "
                     set -e &&
                     cd /opt/apps &&
-                    tar -xzf releases/${APP_NAME}-${VERSION}.tar.gz -C releases/${VERSION}/ &&
+                    tar -xzf releases/${VERSION}/${APP_NAME}-${VERSION}.tar.gz -C releases/${VERSION}/ &&
                     ln -sfn releases/${VERSION}/${ARTIFACT_DIR}/ current &&
                     pm2 startOrReload /opt/apps/scripts/ecosystem.config.js
                 "
