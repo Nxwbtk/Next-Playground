@@ -32,7 +32,7 @@ pipeline {
             steps {
                 sh '''
                 rm -rf ${ARTIFACT_DIR}
-                mkdir -p ${ARTIFACT_DIR}/app
+                mkdir -p ${ARTIFACT_DIR}/app/
 
                 cd app && cp -r .next public node_modules package.json ${ARTIFACT_DIR}/app
                 echo ${VERSION} > ${ARTIFACT_DIR}/VERSION
