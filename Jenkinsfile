@@ -15,7 +15,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh '''
-                npm ci
+                cd app && npm ci
                 '''
             }
         }
@@ -23,7 +23,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''
-                npm run build
+                cd app && npm run build
                 '''
             }
         }
@@ -34,7 +34,7 @@ pipeline {
                 rm -rf ${ARTIFACT_DIR}
                 mkdir -p ${ARTIFACT_DIR}/app
 
-                cp -r .next public node_modules package.json ecosystem.config.js ${ARTIFACT_DIR}/app
+                cd app && cp -r .next public node_modules package.json ${ARTIFACT_DIR}/app
                 echo ${VERSION} > ${ARTIFACT_DIR}/VERSION
 
                 tar -czf ${APP_NAME}-${VERSION}.tar.gz ${ARTIFACT_DIR}
