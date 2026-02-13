@@ -52,6 +52,7 @@ pipeline {
             steps {
                 sh '''
                 ls -la
+                ssh vagrant@192.168.56.10 "mkdir -p /opt/apps/releases && exit"
                 rsync -az ${APP_NAME}-${VERSION}.tar.gz vagrant@192.168.56.10:/opt/apps/releases/${VERSION}
                 '''
             }
