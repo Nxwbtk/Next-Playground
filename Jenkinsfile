@@ -15,7 +15,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh '''
-                cd app && npm ci
+                cd app && ls -la && npm ci
                 '''
             }
         }
