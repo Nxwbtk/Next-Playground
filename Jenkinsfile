@@ -32,7 +32,7 @@ pipeline {
             steps {
                 sh '''
                 rm -rf ${ARTIFACT_DIR}
-                mkdir -p ${ARTIFACT_DIR}/app/
+                mkdir -p ${ARTIFACT_DIR}/app
 
                 cd app && cp -r .next public node_modules package.json ../${ARTIFACT_DIR}/app/
                 echo ${VERSION} > ../${ARTIFACT_DIR}/VERSION
@@ -65,7 +65,7 @@ pipeline {
                     cd /opt/apps
                     mkdir -p releases current
                     tar -xzf releases/${APP_NAME}-${VERSION}.tar.gz -C releases
-                    ln -sfn releases/${ARTIFACT_DIR}/app current
+                    ln -sfn releases/${ARTIFACT_DIR} current
                     pm2 startOrReload /opt/apps/scripts/ecosystem.config.js
                 EOF
                 '''
