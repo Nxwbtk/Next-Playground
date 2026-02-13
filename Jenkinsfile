@@ -15,7 +15,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh '''
-                cd app && ls -la && npm ci
+                cd app && ls -la && pnpm ci
                 '''
             }
         }
@@ -23,7 +23,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''
-                cd app && npm run build
+                cd app && pnpm run build
                 '''
             }
         }
