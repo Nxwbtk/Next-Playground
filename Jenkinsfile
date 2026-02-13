@@ -63,7 +63,6 @@ pipeline {
                 ssh vagrant@192.168.56.10 << 'EOF'
                     set -e
                     cd /opt/apps
-                    mkdir -p releases current
                     tar -xzf releases/${APP_NAME}-${VERSION}.tar.gz -C releases
                     ln -sfn releases/${ARTIFACT_DIR} current
                     pm2 startOrReload /opt/apps/scripts/ecosystem.config.js
